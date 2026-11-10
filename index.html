@@ -1,0 +1,680 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adrian's Choice · Glovo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --glovo-yellow: #ffc244;
+      --glovo-dark: #1a1a1a;
+      --glovo-gray: #6b6b6b;
+      --glovo-light: #f7f7f7;
+      --glovo-border: #e8e8e8;
+      --glovo-green: #00a082;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #ffffff;
+      color: var(--glovo-dark);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== TOP BAR ===== */
+    .topbar {
+      background: var(--glovo-yellow);
+      padding: 0 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+    }
+
+    .topbar-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 1.5rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.5px;
+      color: var(--glovo-dark);
+      white-space: nowrap;
+    }
+
+    .logo i { font-size: 1.2rem; }
+
+    .delivery-toggle {
+      display: flex;
+      background: rgba(0,0,0,0.08);
+      border-radius: 100px;
+      padding: 4px;
+      gap: 2px;
+    }
+
+    .delivery-toggle span {
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: default;
+      color: var(--glovo-dark);
+    }
+
+    .delivery-toggle span.active {
+      background: #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .topbar-actions .icon-btn {
+      background: rgba(0,0,0,0.08);
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--glovo-dark);
+      font-size: 1rem;
+      transition: background 0.15s;
+    }
+
+    .topbar-actions .icon-btn:hover { background: rgba(0,0,0,0.14); }
+
+    .cart-btn {
+      background: var(--glovo-dark);
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      padding: 9px 18px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .cart-btn i { font-size: 0.9rem; }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: var(--glovo-yellow);
+      padding: 0 1.5rem 2.5rem;
+    }
+
+    .hero-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: end;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 0.6rem;
+      color: var(--glovo-dark);
+    }
+
+    .hero-sub {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: rgba(0,0,0,0.7);
+    }
+
+    .hero-sub .rating {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-weight: 700;
+      color: var(--glovo-dark);
+    }
+
+    .hero-sub .rating i { color: var(--glovo-dark); font-size: 0.8rem; }
+
+    .hero-sub .dot { opacity: 0.4; }
+
+    .hero-sub .badge-free {
+      background: var(--glovo-dark);
+      color: var(--glovo-yellow);
+      font-weight: 700;
+      font-size: 0.72rem;
+      padding: 3px 9px;
+      border-radius: 100px;
+      letter-spacing: 0.3px;
+    }
+
+    .hero-emoji {
+      font-size: 6rem;
+      line-height: 1;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.12));
+    }
+
+    /* ===== MAIN CONTAINER ===== */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    /* ===== CATEGORY CHIPS ===== */
+    .category-bar {
+      display: flex;
+      gap: 0.6rem;
+      overflow-x: auto;
+      padding: 1.5rem 0 1.2rem;
+      scrollbar-width: none;
+      position: sticky;
+      top: 64px;
+      background: #fff;
+      z-index: 50;
+    }
+
+    .category-bar::-webkit-scrollbar { display: none; }
+
+    .chip {
+      flex: 0 0 auto;
+      padding: 9px 18px;
+      border-radius: 100px;
+      border: 1.5px solid var(--glovo-border);
+      background: #fff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--glovo-dark);
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+
+    .chip:hover { border-color: #c9c9c9; }
+
+    .chip.active {
+      background: var(--glovo-dark);
+      color: #fff;
+      border-color: var(--glovo-dark);
+    }
+
+    /* ===== SECTION TITLE ===== */
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 1.2rem;
+      color: var(--glovo-dark);
+    }
+
+    /* ===== PRODUCT GRID ===== */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .product-card {
+      border: 1px solid var(--glovo-border);
+      border-radius: 16px;
+      padding: 1.1rem 1.2rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: flex-start;
+      background: #fff;
+      transition: all 0.18s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card:hover {
+      border-color: transparent;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+      transform: translateY(-2px);
+    }
+
+    .product-info { flex: 1; min-width: 0; }
+
+    .product-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -0.2px;
+      color: var(--glovo-dark);
+      margin-bottom: 0.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .product-name .emoji { font-size: 1.1rem; }
+
+    .product-desc {
+      font-size: 0.8rem;
+      color: var(--glovo-gray);
+      line-height: 1.35;
+      margin-bottom: 0.7rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .product-price {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--glovo-dark);
+      letter-spacing: -0.3px;
+    }
+
+    .product-price .currency {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--glovo-gray);
+      margin-right: 2px;
+    }
+
+    .add-btn {
+      flex: 0 0 auto;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1.5px solid var(--glovo-border);
+      background: #fff;
+      color: var(--glovo-dark);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      align-self: center;
+    }
+
+    .add-btn:hover {
+      background: var(--glovo-yellow);
+      border-color: var(--glovo-yellow);
+      transform: scale(1.06);
+    }
+
+    .add-btn:active { transform: scale(0.95); }
+
+    /* ===== EXTRAS ROW ===== */
+    .extras-banner {
+      background: var(--glovo-light);
+      border-radius: 16px;
+      padding: 1.4rem 1.6rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem 1.5rem;
+    }
+
+    .extras-banner .title {
+      font-weight: 800;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+    }
+
+    .extras-banner .title i { color: var(--glovo-green); }
+
+    .extras-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .extra-pill {
+      background: #fff;
+      border: 1px solid var(--glovo-border);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .extra-pill .price {
+      color: var(--glovo-green);
+      font-weight: 800;
+    }
+
+    /* ===== INFO CARDS ===== */
+    .info-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .info-card {
+      background: var(--glovo-light);
+      border-radius: 16px;
+      padding: 1.3rem 1.4rem;
+    }
+
+    .info-card .label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      color: var(--glovo-gray);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .info-card .value {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--glovo-dark);
+      line-height: 1.4;
+    }
+
+    .info-card .value a {
+      color: var(--glovo-green);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .info-card .value small {
+      display: block;
+      font-weight: 500;
+      font-size: 0.82rem;
+      color: var(--glovo-gray);
+      margin-top: 0.2rem;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--glovo-light);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .footer .brand-line {
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.4rem;
+    }
+
+    .footer .brand-line span { color: var(--glovo-green); }
+
+    .footer p {
+      font-size: 0.8rem;
+      color: var(--glovo-gray);
+      margin-top: 0.3rem;
+    }
+
+    .footer .powered {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--glovo-gray);
+      background: #fff;
+      padding: 7px 14px;
+      border-radius: 100px;
+      border: 1px solid var(--glovo-border);
+    }
+
+    .footer .powered i { color: var(--glovo-yellow); font-size: 0.9rem; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-emoji { display: none; }
+      .topbar-actions .icon-btn { display: none; }
+      .delivery-toggle { display: none; }
+      .product-grid { grid-template-columns: 1fr; }
+      .category-bar { top: 60px; }
+    }
+
+    @media (max-width: 480px) {
+      .topbar { padding: 0 1rem; }
+      .hero { padding: 0 1rem 2rem; }
+      .container { padding: 0 1rem 3rem; }
+      .cart-btn span { display: none; }
+      .cart-btn { padding: 9px 12px; }
+      .extras-banner { padding: 1.1rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== TOP BAR ===== -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="logo">
+        <i class="fas fa-bolt" style="color:#00a082;"></i>
+        Glovo
+      </div>
+
+      <div class="delivery-toggle">
+        <span class="active">Delivery</span>
+        <span>Pickup</span>
+      </div>
+
+      <div class="topbar-actions">
+        <button class="icon-btn" aria-label="Search"><i class="fas fa-search"></i></button>
+        <button class="icon-btn" aria-label="Account"><i class="fas fa-user"></i></button>
+        <button class="cart-btn">
+          <i class="fas fa-shopping-bag"></i>
+          <span>Cart · 0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <h1>Adrian's Choice</h1>
+        <div class="hero-sub">
+          <span class="rating"><i class="fas fa-star"></i> 4.8</span>
+          <span class="dot">•</span>
+          <span>Kenyan · Grill · Comfort food</span>
+          <span class="dot">•</span>
+          <span>25–35 min</span>
+          <span class="badge-free">FREE DELIVERY</span>
+        </div>
+      </div>
+      <div class="hero-emoji">🍲</div>
+    </div>
+  </section>
+
+  <!-- ===== MAIN ===== -->
+  <main class="container">
+
+    <!-- Category chips -->
+    <div class="category-bar">
+      <button class="chip active">All</button>
+      <button class="chip">Mains</button>
+      <button class="chip">Breads</button>
+      <button class="chip">Grill</button>
+      <button class="chip">Sides</button>
+      <button class="chip">Drinks</button>
+      <button class="chip">Extras</button>
+    </div>
+
+    <h2 class="section-title">Popular right now 🔥</h2>
+
+    <!-- ===== PRODUCT GRID ===== -->
+    <div class="product-grid">
+
+      <div class="product-card">
+        <div class="product-info">
+          <div class="product-name"><span class="emoji">🫓</span> Chapati</div>
+          <div class="product-desc">Soft, layered homestyle chapati — perfect with any stew.</div>
+          <div class="product-price"><span class="currency">KSh</span> 45</div>
+        </div>
+        <button class="add-btn" aria-label="Add Chapati"><i class="fas fa-plus"></i></button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-info">
+          <div class="product-name"><span class="emoji">🍩</span> Ndazi</div>
+          <div class="product-desc">Golden, sweet cardamom doughnuts — fresh from the fryer.</div>
+          <div class="product-price"><span class="currency">KSh</span> 40</div>
+        </div>
+        <button class="add-btn" aria-label="Add Ndazi"><i class="fas fa-plus"></i></button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-info">
+          <div class="product-name"><span class="emoji">🍖</span> Meat</div>
+          <div class="product-desc">Grilled tender meat with chef's signature sauce.</div>
+          <div class="product-price"><span class="currency">KSh</span> 200</div>
+        </div>
+        <button class="add-btn" aria-label="Add Meat"><i class="fas fa-plus"></i></button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-info">
+          <div class="product-name"><span class="emoji">🍚</span> Pilau</div>
+          <div class="product-desc">Spiced rice with cumin and caramelized onions.</div>
+          <div class="product-price"><span class="currency">KSh</span> 150</div>
+        </div>
+        <button class="add-btn" aria-label="Add Pilau"><i class="fas fa-plus"></i></button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-info">
+          <div class="product-name"><span class="emoji">🍗</span> Chicken Stew</div>
+          <div class="product-desc">Slow-cooked chicken in a rich, herby broth.</div>
+          <div class="product-price"><span class="currency">KSh</span> 250</div>
+        </div>
+        <button class="add-btn" aria-label="Add Chicken Stew"><i class="fas fa-plus"></i></button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-info">
+          <div class="product-name"><span class="emoji">🍛</span> Ugali</div>
+          <div class="product-desc">Classic white cornmeal — the perfect companion.</div>
+          <div class="product-price"><span class="currency">KSh</span> 30</div>
+        </div>
+        <button class="add-btn" aria-label="Add Ugali"><i class="fas fa-plus"></i></button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-info">
+          <div class="product-name"><span class="emoji">🥬</span> Sukuma Wiki</div>
+          <div class="product-desc">Sautéed greens with a squeeze of fresh lemon.</div>
+          <div class="product-price"><span class="currency">KSh</span> 50</div>
+        </div>
+        <button class="add-btn" aria-label="Add Sukuma Wiki"><i class="fas fa-plus"></i></button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-info">
+          <div class="product-name"><span class="emoji">🥟</span> Samosa</div>
+          <div class="product-desc">Crispy beef samosa served with tangy chutney.</div>
+          <div class="product-price"><span class="currency">KSh</span> 60</div>
+        </div>
+        <button class="add-btn" aria-label="Add Samosa"><i class="fas fa-plus"></i></button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-info">
+          <div class="product-name"><span class="emoji">☕</span> Chai</div>
+          <div class="product-desc">Spiced milk tea with cardamom — warming and sweet.</div>
+          <div class="product-price"><span class="currency">KSh</span> 30</div>
+        </div>
+        <button class="add-btn" aria-label="Add Chai"><i class="fas fa-plus"></i></button>
+      </div>
+
+    </div>
+
+    <!-- ===== EXTRAS ===== -->
+    <div class="extras-banner">
+      <div class="title"><i class="fas fa-plus-circle"></i> Little extras</div>
+      <div class="extras-list">
+        <div class="extra-pill">🔥 Kachumbari <span class="price">KSh 40</span></div>
+        <div class="extra-pill">🌶️ Chili sauce <span class="price">KSh 20</span></div>
+        <div class="extra-pill">🧄 Extra gravy <span class="price">KSh 30</span></div>
+      </div>
+    </div>
+
+    <!-- ===== INFO CARDS ===== -->
+    <div class="info-row">
+      <div class="info-card">
+        <div class="label"><i class="fas fa-clock"></i> Opening hours</div>
+        <div class="value">Daily · 11:00 – 22:00 <small>Open now · closes at 10pm</small></div>
+      </div>
+      <div class="info-card">
+        <div class="label"><i class="fas fa-phone-alt"></i> Contact</div>
+        <div class="value"><a href="tel:+254799323159">+254 799 323 159</a> <small>Tap to call the restaurant</small></div>
+      </div>
+      <div class="info-card">
+        <div class="label"><i class="fas fa-location-dot"></i> Delivery</div>
+        <div class="value">25–35 min <small>Free delivery on orders over KSh 500</small></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="brand-line">Adrian's <span>Choice</span></div>
+      <p>Kenyan comfort food · grill · homestyle</p>
+      <p style="margin-top:0.6rem;">📞 <a href="tel:+254799323159" style="color:#00a082; font-weight:700; text-decoration:none;">+254 799 323 159</a></p>
+      <div class="powered">
+        <i class="fas fa-bolt"></i> Powered by Glovo-style ordering
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
